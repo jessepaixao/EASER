@@ -5,11 +5,15 @@ This repository contains the data and Matlab codes implemented in the paper "Lev
 Jessé Paixao, Emeline Sadoulet-Reboul, Emmanuel Foltête, Gaël Chevallier, Scott Cogan \
 Applied Mechanics department, FEMTO-ST Institute
 
-# Description
 
-![Experimental Setup](figures/exp_setup.png) ![Experimental Setup Scheme](figures/exp_setup_scheme.png)
+## Experimental Setup
+<p align="center">
+  <img src="figures/exp_setup.png" width="300"/>  &ensp;        <img src="figures/exp_setup_scheme.png" width="400"/> 
+</p>
 
+## License
+This repository is released under the MIT license. See [LICENSE](LICENSE) for additional details.
 
-# License
-This repository is released under the MIT license. See LICENSE for additional details.
-
+## Contact
+Please feel free to contact us if you have any questions about the code. <br>
+Email: jesse.dossantos@femto-st.fr
