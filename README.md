@@ -7,7 +7,8 @@ Applied Mechanics department, FEMTO-ST Institute
 
 # Description
 
-![Experimental Setup](figures/exp_setup.png) ![Experimental Setup Scheme](figures/exp_setup_scheme.png)
+
+<img src="figures/exp_setup.png" width="425"/> <img src="figures/exp_setup_scheme.png" width="425"/> 
 
 
 # License
