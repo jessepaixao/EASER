@@ -50,9 +50,7 @@ global G
 % Mean of FRF (modulus)
 G_exp=(mean(transpose(G_win(1:N/2+1,:))));
 
-% Scale factor of experimental data
-scaleG=1/125;
-G=G_exp(loc1:loc2)./scaleG;
+G=G_exp(loc1:loc2);
 f=f(loc1:loc2);
 G = G.';
 f = f.';
@@ -91,7 +89,7 @@ ylabel('$ Imag[ H (\omega)] $','interpreter','latex')
 xlabel('$ Real[ H (\omega)] $','interpreter','latex')
 legend({'Experimental','Identified'},'interpreter','latex','location','best')
 
-
+% 
 figure(2)
 set(gcf,'units','normalized','outerposition',[0 0 1 1])
 clf
@@ -107,10 +105,3 @@ legend({'Experimental','Identified'},'interpreter','latex','location','best')
 
 wn=abs(s)/2/pi;
 damp=-real(s)./abs(s)*100;
-
-figure(3)
-set(gcf,'units','normalized','outerposition',[0 0 1 1])
-bar(damp)
-set(gca,'FontSize',font_size,'TickLabelInterpreter','latex')
-ylabel('Damping Ratio','interpreter','latex')
-xlabel('Mode','interpreter','latex') 

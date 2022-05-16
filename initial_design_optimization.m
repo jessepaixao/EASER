@@ -1,4 +1,3 @@
-
 clc
 clear all
 close all
@@ -61,7 +60,6 @@ for i=1:size(sData,2)
     G_win(:,i)=pxy./pxx;
 end
 
-
 % Accelerance
 H_win_mean=abs(mean(transpose(G_win)).*(2*1j*pi.*f'));
 
@@ -73,11 +71,7 @@ l_upt=loc1:12:loc2;
 f_upt=f(loc1:12:loc2);
 
 % FRF normalization by maximum amplitude
-H_norm_exp=H_win_mean(l_upt)/max(H_win_mean(l_upt));
-
-% Find natural natural frequencies from experimental data
-[pks,locs]=findpeaks(H_norm_exp,'MinPeakHeight',0.4);
-fn_exp=f_upt(locs);
+H_exp=H_win_mean(l_upt);
 
 %% FEM MODEL PARAMTERS
 
@@ -118,14 +112,14 @@ model.study('std3').run;
 data=mphplot(model,'pg7','createplot','off');
    
 % Accelerance from COMSOL
-% clear H
 H=data{1, 1}{1, 1}.d;
-H_norm_sim=H/max(H);
+cal_fac=(max(H_exp)/max(H));
+H_sim=H.*cal_fac;
 
 figure(1)
 set(gcf,'units','normalized','outerposition',[0 0 1 1])
-plot(freq,H_norm_sim,'b-','linewidth',2); hold on
-plot(freq,H_norm_exp,'r-','linewidth',2); hold on
+plot(freq,H_sim,'b-','linewidth',2); hold on
+plot(freq,H_exp,'r-','linewidth',2); hold on
 set(gca,'FontSize',32,'TickLabelInterpreter','latex')
 ylabel('$ \left | H (\omega) \right | $','interpreter','latex')
 xlabel('Frequency [Hz]','interpreter','latex')
@@ -144,7 +138,7 @@ x = fminbnd(fun,lb,ub,options);
 %% OPTIMAL DESIGN
 
 % Optimal beam length
-% x=46.07;
+x=46.07;
 model.param.set('Hb', [num2str(x,10),'[mm]']);
 
 % Set frequency range
@@ -157,11 +151,11 @@ model.study('std3').run;
 data=mphplot(model,'pg7','createplot','off');
     
 H=data{1, 1}{1, 1}.d;
-H_norm_sim=H;
+H_epeak_sim=H*cal_fac;
 
 figure(1)
 set(gcf,'units','normalized','outerposition',[0 0 1 1])
-plot(freq,H_norm_sim,'-','linewidth',2); hold on
+plot(freq,H_epeak_sim,'-','linewidth',2); hold on
 set(gca,'FontSize',32,'TickLabelInterpreter','latex')
-ylabel('$ \left | H (\omega) \right | $','interpreter','latex')
+ylabel('$ \left | H (\omega) \right | [\frac{mm}{s^2V}]$','interpreter','latex')
 xlabel('Frequency [Hz]','interpreter','latex')

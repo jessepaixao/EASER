@@ -57,9 +57,6 @@ files_cell{5}={'PB5\L1','PB5\L2','PB5\L3',...
 decision_cell{5}={'k','k','k','k','k','k','k','k','k','k','k','k','k','k'}
 line_cell{5}={'-','-','-','-',':','-','-','-','-',':','-','-','-'}
 
-% Vibrometer scale conversion
-scale=25;
-
 % Colors
 color=parula(4);
 line_color=parula(6);
@@ -104,7 +101,7 @@ for g=1:5
             time=seconds(sData{i}.Time);
 
             input=data(:,2);
-            output=data(:,1)*scale;   
+            output=data(:,1);   
 
             window=hanning(2^14);
             overlap=length(window)*(3/4);
@@ -161,11 +158,11 @@ for g=1:5
         set(gca,'FontSize',font_size*0.8,'TickLabelInterpreter','latex')
         ylabel('$ \left | H (\omega) \right | [\frac{mm}{s^2V}]$','interpreter','latex')
         xlabel('Frequency [Hz]','interpreter','latex')
-        legend({'Step$\;$1',strcat('Step$\;$',num2str(fix(length(files)/2))),strcat('Step$\;$',num2str(length(files)))},'interpreter','latex','location','best')
-       
+        legend({'Step$\;$0',strcat('Step$\;$',num2str(fix(length(files)/2))-1),strcat('Step$\;$',num2str(length(files)-1))},'interpreter','latex','location','best')
+       saveas(1,strcat('figures/FRF_PB',num2str(g)),'epsc')
         
         figure(2)
-        xi(k)=k;
+        xi(k)=k-1;
         yi(k)=max(pks);
 
         if k==length(files)
@@ -185,13 +182,14 @@ for g=1:5
         end
 
 
-        p=plot(k,max(pks),'ko','MarkerSize',8,'MarkerFaceColor',decision{k}); hold on
+        p=plot(k-1,max(pks),'ko','MarkerSize',8,'MarkerFaceColor',decision{k}); hold on
         p.Annotation.LegendInformation.IconDisplayStyle = 'off';
         set(gca,'FontSize',font_size*0.8,'TickLabelInterpreter','latex')
         ylabel('$ \left | H (\omega) \right |_{\infty} [\frac{mm}{s^2V}]$','interpreter','latex')
         xlabel('Step','interpreter','latex')
-        xlim([1 length(files)])
+        xlim([0 length(files)-1])
         ylim([1e4,3.2e4])
+        saveas(2,strcat('figures/Hinf_PB',num2str(g)),'epsc')
         
 
         figure(3)
@@ -212,6 +210,7 @@ for g=1:5
     close(1)
     close(2)
 end
+
 
 % Set threshold value
 TH=700
@@ -235,9 +234,10 @@ plot([-50 -60],[-100 -110],'-','linewidth',2,'color',line_color(2,:))
 plot([-50 -60],[-100 -110],'-','linewidth',2,'color',line_color(3,:))
 plot([-50 -60],[-100 -110],'-','linewidth',2,'color',line_color(4,:))
 plot([-50 -60],[-100 -110],'-','linewidth',2,'color',line_color(5,:))
+
 plot([0 7e4*25],[0-TH 7e4*25-TH],'k--'); hold on
 
-legend({'Decision I','Decision II','Stop','Equal-peak','Threshold','PB1','PB2','PB3','PB4','PB5',},'interpreter','latex','FontSize',font_size,'location','northwest')
+legend({'Decision I','Decision II','Stop','Equal-peak','Threshold','PB1','PB2','PB3','PB4','PB5'},'interpreter','latex','FontSize',font_size,'location','northwest')
 
 % Create arrow
 annotation('arrow',[0.466745531019979 0.462145110410095],...
@@ -258,5 +258,3 @@ annotation('arrow',[0.616719242902208 0.612644584647739],...
 % Create arrow
 annotation('arrow',[0.69111461619348 0.694137749737118],...
     [0.463068181818182 0.465650826446281],'HeadStyle','plain');
-
-
