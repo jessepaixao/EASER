@@ -17,3 +17,7 @@ This repository is released under the MIT license. See [LICENSE](LICENSE) for ad
 ## Contact
 Please feel free to contact us if you have any questions about the code. <br>
 Email: jesse.dossantos@femto-st.fr
+
+## Reference
+
+Paixão, J., Sadoulet-Reboul, E., Foltête, E. et al. Leveraging physical intelligence for the self-design of high performance engineering structures. Sci Rep 12, 11640 (2022). https://doi.org/10.1038/s41598-022-15229-z
