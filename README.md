@@ -3,7 +3,7 @@ This repository contains the data and Matlab codes implemented in the paper "Lev
 \
 \
 Jessé Paixao, Emeline Sadoulet-Reboul, Emmanuel Foltête, Gaël Chevallier, Scott Cogan \
-Applied Mechanics department, FEMTO-ST Institute
+Department of Applied Mechanics, FEMTO-ST Institute
 
 
 ## Experimental Setup
